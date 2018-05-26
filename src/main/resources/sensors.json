@@ -1,7 +1,7 @@
 {
   "sensorDevices": [
     {
-      "address": "C2:CE:B6:BC:D7:5B",
+      "address": "F6:56:9D:78:F0:2E",
       "description": "Maker Faire 2018 Floor Sensor",
       "sensors": [
         { "index": 1, "checkerboardID": "X1" },
