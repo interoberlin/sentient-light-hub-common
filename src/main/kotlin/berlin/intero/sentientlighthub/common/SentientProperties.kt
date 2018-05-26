@@ -4,6 +4,7 @@ class SentientProperties {
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
         const val SENSOR_READ_DELAY = 1_000L
+        const val SENTIENT_MAPPING_DELAY = 1_000L
     }
 
     object GATT {
@@ -34,11 +35,17 @@ class SentientProperties {
         }
     }
 
+    object Mapping {
+        var VALUE_HISTORY = 50
+    }
+
     object Color {
         const val TASK = ANSI_COLOR.ANSI_GREEN
         const val GATT = ANSI_COLOR.ANSI_CYAN
         const val VALUE = ANSI_COLOR.ANSI_CYAN
         const val RESET = ANSI_COLOR.ANSI_RESET
+
+        const val CONDITION_TRIGGERED = ANSI_COLOR.ANSI_YELLOW_BACKGROUND + " " + ANSI_COLOR.ANSI_BLACK
     }
 
     private object ANSI_COLOR {
