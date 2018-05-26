@@ -1,6 +1,6 @@
 package berlin.intero.sentientlighthub.common.model.mapping.conditions
 
-import berlin.intero.sentientlighthub.common.SentientColors
+import berlin.intero.sentientlighthub.common.SentientProperties
 import java.util.logging.Logger
 
 /**
@@ -26,7 +26,7 @@ data class DynamicThresholdCondition(
         val averageValue = values[0]
         val currentValue = values[1]
 
-        log.info("${SentientColors.ANSI_CYAN}avg $averageValue / cur $currentValue / thresh $dynamicThreshold / type $thresholdType ${SentientColors.ANSI_RESET}")
+        log.info("${SentientProperties.Color.VALUE}avg $averageValue / cur $currentValue / thresh $dynamicThreshold / type $thresholdType ${SentientProperties.Color.RESET}")
 
         if (this.checkerboardID == checkerboardID && currentValue != null && averageValue != null) {
             when (thresholdType) {

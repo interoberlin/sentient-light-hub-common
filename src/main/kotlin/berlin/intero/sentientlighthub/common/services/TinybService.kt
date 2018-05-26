@@ -1,6 +1,5 @@
 package berlin.intero.sentientlighthub.common.services
 
-import berlin.intero.sentientlighthub.common.SentientColors
 import berlin.intero.sentientlighthub.common.SentientProperties
 import berlin.intero.sentientlighthubplayground.exceptions.BluetoothConnectionException
 import tinyb.*
@@ -39,9 +38,9 @@ object TinybService : BluetoothNotification<ByteArray> {
             return emptyList()
         }
 
-        for (i in 0 until SentientProperties.GATT_SCAN_RETRY) {
+        for (i in 0 until SentientProperties.GATT.SCAN_RETRY) {
             log.fine(".")
-            Thread.sleep(SentientProperties.GATT_SCAN_DURATION)
+            Thread.sleep(SentientProperties.GATT.SCAN_DURATION)
         }
 
         try {
@@ -87,10 +86,10 @@ object TinybService : BluetoothNotification<ByteArray> {
     fun ensureConnection(device: BluetoothDevice) {
         log.fine("Ensure connection")
 
-        repeat(SentientProperties.GATT_CONNECTION_RETRY, {
+        repeat(SentientProperties.GATT.CONNECTION_RETRY, {
             if (!connectDevice(device)) {
                 log.finer(".")
-                Thread.sleep(SentientProperties.GATT_CONNECTION_IDLE)
+                Thread.sleep(SentientProperties.GATT.CONNECTION_IDLE)
             } else {
                 log.info("Connected ${device.address}")
                 return
@@ -156,7 +155,7 @@ object TinybService : BluetoothNotification<ByteArray> {
         log.fine("Show devices")
 
         devices.forEach { device ->
-            log.info("Device ${SentientColors.ANSI_CYAN} ${device.address} ${SentientColors.ANSI_RESET} ${device.name} ${device.connected}")
+            log.info("Device ${SentientProperties.Color.GATT} ${device.address} ${SentientProperties.Color.RESET} ${device.name} ${device.connected}")
         }
     }
 
@@ -171,7 +170,7 @@ object TinybService : BluetoothNotification<ByteArray> {
         ensureConnection(device)
 
         device.services.forEach { service ->
-            log.info(" Service ${SentientColors.ANSI_CYAN} ${service.uuid} ${SentientColors.ANSI_RESET}")
+            log.info(" Service ${SentientProperties.Color.GATT} ${service.uuid} ${SentientProperties.Color.RESET}")
             showCharacteristics(service)
         }
     }
@@ -181,7 +180,7 @@ object TinybService : BluetoothNotification<ByteArray> {
      */
     fun showCharacteristics(service: BluetoothGattService) {
         service.characteristics.forEach { characteristic ->
-            log.info("  Characteristic ${SentientColors.ANSI_CYAN} ${characteristic.uuid} ${SentientColors.ANSI_RESET}")
+            log.info("  Characteristic ${SentientProperties.Color.GATT} ${characteristic.uuid} ${SentientProperties.Color.RESET}")
         }
     }
 

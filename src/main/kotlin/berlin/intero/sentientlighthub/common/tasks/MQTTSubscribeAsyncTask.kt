@@ -1,6 +1,5 @@
-package berlin.intero.sentientlighthubplayground.tasks.async
+package berlin.intero.sentientlighthub.common.tasks
 
-import berlin.intero.sentientlighthub.common.SentientColors
 import berlin.intero.sentientlighthub.common.SentientProperties
 import berlin.intero.sentientlighthub.common.services.MqttService
 import org.eclipse.paho.client.mqttv3.MqttCallback
@@ -22,8 +21,9 @@ class MQTTSubscribeAsyncTask(
     }
 
     override fun run() {
-        log.info("${SentientColors.ANSI_GREEN}-- MQTT SUBSCRIBE TASK${SentientColors.ANSI_RESET}")
+        log.info("${SentientProperties.Color.TASK}-- MQTT SUBSCRIBE TASK${SentientProperties.Color.RESET}")
+        log.fine("topic $topic")
 
-        MqttService.subscribe(SentientProperties.MQTT_SERVER_URI, topic, callback)
+        MqttService.subscribe(SentientProperties.MQTT.SERVER_URI, topic, callback)
     }
 }

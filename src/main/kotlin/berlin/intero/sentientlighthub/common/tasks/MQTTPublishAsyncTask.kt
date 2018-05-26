@@ -1,6 +1,5 @@
-package berlin.intero.sentientlighthubplayground.tasks.async
+package berlin.intero.sentientlighthub.common.tasks
 
-import berlin.intero.sentientlighthub.common.SentientColors
 import berlin.intero.sentientlighthub.common.SentientProperties
 import berlin.intero.sentientlighthub.common.model.SensorEvent
 import berlin.intero.sentientlighthub.common.services.MqttService
@@ -23,12 +22,12 @@ class MQTTPublishAsyncTask(
     }
 
     override fun run() {
-        log.info("${SentientColors.ANSI_GREEN}-- MQTT PUBLISH TASK${SentientColors.ANSI_RESET}")
+        log.info("${SentientProperties.Color.TASK}-- MQTT PUBLISH TASK${SentientProperties.Color.RESET}")
         log.fine("topic/value $topic / $value")
 
         val event = SensorEvent(topic, value, Date())
 
         // Publish value
-        MqttService.publish(SentientProperties.MQTT_SERVER_URI, event.topic, event.value)
+        MqttService.publish(SentientProperties.MQTT.SERVER_URI, event.topic, event.value)
     }
 }

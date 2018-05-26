@@ -23,8 +23,8 @@ object MqttService {
 
         // Set connection options
         val connOpts = MqttConnectOptions()
-        connOpts.isAutomaticReconnect = SentientProperties.MQTT_AUTOMATIC_RECONNECT
-        connOpts.connectionTimeout = SentientProperties.MQTT_CONNECTION_TIMEOUT
+        connOpts.isAutomaticReconnect = SentientProperties.MQTT.AUTOMATIC_RECONNECT
+        connOpts.connectionTimeout = SentientProperties.MQTT.CONNECTION_TIMEOUT
 
         // Create client and connect
         val client = MqttClient(mqttServerURI, MqttClient.generateClientId())
@@ -54,8 +54,8 @@ object MqttService {
 
         // Set connection options
         val connOpts = MqttConnectOptions()
-        connOpts.isAutomaticReconnect = SentientProperties.MQTT_AUTOMATIC_RECONNECT
-        connOpts.connectionTimeout = SentientProperties.MQTT_CONNECTION_TIMEOUT
+        connOpts.isAutomaticReconnect = SentientProperties.MQTT.AUTOMATIC_RECONNECT
+        connOpts.connectionTimeout = SentientProperties.MQTT.CONNECTION_TIMEOUT
 
         // Generate client and set callback
         val client = MqttClient(mqttServerURI, MqttClient.generateClientId())
