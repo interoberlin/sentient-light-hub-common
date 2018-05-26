@@ -3,8 +3,8 @@ package berlin.intero.sentientlighthub.common
 class SentientProperties {
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
-        const val SENSOR_READ_DELAY = 1_000L
-        const val SENTIENT_MAPPING_DELAY = 1_000L
+        const val SENSOR_READ_DELAY = 5_000L
+        const val SENTIENT_MAPPING_DELAY = 5_000L
     }
 
     object GATT {
@@ -13,9 +13,11 @@ class SentientProperties {
         var SCAN_RETRY = 2
         var SCAN_DURATION = 1000L
 
+        const val INVALID_VALUE = -1
+
         object Characteristic {
             var SENSOR = "00002014-0000-1000-8000-00805f9b34fb"
-            var LED = "00004001-0000-1000-8000-00805f9b34fb"
+            var LED    = "00004001-0000-1000-8000-00805f9b34fb"
         }
     }
 
@@ -44,6 +46,8 @@ class SentientProperties {
         const val GATT = ANSI_COLOR.ANSI_CYAN
         const val VALUE = ANSI_COLOR.ANSI_CYAN
         const val RESET = ANSI_COLOR.ANSI_RESET
+
+        const val DEBUG = ANSI_COLOR.ANSI_GREEN
 
         const val CONDITION_TRIGGERED = ANSI_COLOR.ANSI_YELLOW_BACKGROUND + " " + ANSI_COLOR.ANSI_BLACK
     }
