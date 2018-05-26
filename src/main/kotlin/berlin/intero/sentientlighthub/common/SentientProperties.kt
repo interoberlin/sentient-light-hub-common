@@ -8,6 +8,10 @@ class SentientProperties {
         var GATT_SCAN_RETRY = 2
         var GATT_SCAN_DURATION = 1000L
 
+        // MQTT configuration
+        var MQTT_AUTOMATIC_RECONNECT = true
+        var MQTT_CONNECTION_TIMEOUT = 30
+
         // Scan rates / delays in milliseconds
         const val SENSORS_SCAN_RATE = 300_000L
         const val SENSOR_READ_DELAY = 1_000L
