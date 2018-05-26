@@ -13,8 +13,8 @@ import java.util.logging.Logger
  * @param value value to publish
  */
 class MQTTPublishAsyncTask(
-        val topic: String,
-        val value: String
+        private val topic: String,
+        private val value: String
 ) : Runnable {
 
     companion object {

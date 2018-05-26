@@ -12,8 +12,8 @@ import java.util.logging.Logger
  * @param callback callback for subscription events
  */
 class MQTTSubscribeAsyncTask(
-        val topic: String,
-        val callback: MqttCallback
+        private val topic: String,
+        private val callback: MqttCallback
 ) : Runnable {
 
     companion object {
