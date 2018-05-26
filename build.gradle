@@ -15,11 +15,14 @@ version '0.1.0'
 apply plugin: 'kotlin'
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "com.intel:tinyb:0.1.0"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile("org.jetbrains.kotlin:kotlin-reflect")
 }
 
 compileKotlin {
