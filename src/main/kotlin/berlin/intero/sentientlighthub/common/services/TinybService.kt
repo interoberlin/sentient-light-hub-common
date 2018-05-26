@@ -196,8 +196,10 @@ object TinybService : BluetoothNotification<ByteArray> {
      */
     private fun getCharacteristicByID(device: BluetoothDevice, characteristicID: String): BluetoothGattCharacteristic? {
         device.services.forEach { service ->
-            return service.characteristics.firstOrNull { characteristic ->
-                characteristicID == characteristic.uuid
+            service.characteristics.forEach { characteristic ->
+                if (characteristicID == characteristic.uuid) {
+                    return characteristic
+                }
             }
         }
 
