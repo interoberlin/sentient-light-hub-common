@@ -3,8 +3,9 @@ package berlin.intero.sentientlighthub.common
 class SentientProperties {
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
-        const val SENSOR_READ_DELAY = 5_000L
-        const val SENTIENT_MAPPING_DELAY = 5_000L
+        const val SENSOR_READ_DELAY = 2_500L
+        const val SENTIENT_MAPPING_DELAY = 2_500L
+        const val SENTIENT_WRITE_DELAY = 2_500L
     }
 
     object GATT {
@@ -25,8 +26,14 @@ class SentientProperties {
         var AUTOMATIC_RECONNECT = true
         var CONNECTION_TIMEOUT = 30
 
-        var SERVER_HOST = "localhost"
-        var SERVER_PORT = "8883"
+        const val SERVER_HOST_LOCAL = "localhost"
+        const val SERVER_PORT_LOCAL = "8883"
+
+        const val SERVER_HOST_CUMBERBATCH = "10.42.0.1"
+        const val SERVER_PORT_CUMBERBATCH = "1883"
+
+        var SERVER_HOST = SERVER_HOST_LOCAL
+        var SERVER_PORT = SERVER_PORT_LOCAL
         var SERVER_URI = "tcp://${SERVER_HOST}:${SERVER_PORT}"
 
         object Topic {
