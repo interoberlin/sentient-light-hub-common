@@ -117,9 +117,13 @@ object ConfigurationService {
         log.severe("$e")
     }
 
+    /**
+     * Determines an actor device by its {@param stripID} and {@param ledID}
+     *
+     * @param stripID strip ID
+     * @param ledID LED ID
+     */
     fun getActor(stripID: String?, ledID: String?): ActorDevice? {
-        log.info("getActor stripID $stripID / ledID $ledID")
-
         return actorConfig?.actorDevices?.filter { d ->
             d.strips.any { (stripIndex, _, leds) ->
                 stripID != null && stripIndex == stripID && leds.any { (ledIndex) ->
