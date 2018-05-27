@@ -1,9 +1,8 @@
 package berlin.intero.sentientlighthub.common.tasks
 
 import berlin.intero.sentientlighthub.common.SentientProperties
-import berlin.intero.sentientlighthub.common.model.SensorEvent
+import berlin.intero.sentientlighthub.common.model.MQTTEvent
 import berlin.intero.sentientlighthub.common.services.MqttService
-import java.util.*
 import java.util.logging.Logger
 
 /**
@@ -13,9 +12,8 @@ import java.util.logging.Logger
  * @param value value to publish
  */
 class MQTTPublishAsyncTask(
-        private val topic: String,
-        private val value: String
-) : Runnable {
+        private val mqttEvents: List<MQTTEvent>
+        ) : Runnable {
 
     companion object {
         private val log: Logger = Logger.getLogger(MQTTPublishAsyncTask::class.simpleName)
@@ -23,11 +21,8 @@ class MQTTPublishAsyncTask(
 
     override fun run() {
         log.info("${SentientProperties.Color.TASK}-- MQTT PUBLISH TASK${SentientProperties.Color.RESET}")
-        log.fine("topic/value $topic / $value")
-
-        val event = SensorEvent(topic, value, Date())
 
         // Publish value
-        MqttService.publish(SentientProperties.MQTT.SERVER_URI, event.topic, event.value)
+        MqttService.publish(SentientProperties.MQTT.SERVER_URI, mqttEvents)
     }
 }

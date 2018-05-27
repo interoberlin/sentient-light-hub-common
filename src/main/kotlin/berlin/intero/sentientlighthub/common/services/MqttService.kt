@@ -1,6 +1,7 @@
 package berlin.intero.sentientlighthub.common.services
 
 import berlin.intero.sentientlighthub.common.SentientProperties
+import berlin.intero.sentientlighthub.common.model.MQTTEvent
 import org.eclipse.paho.client.mqttv3.MqttCallback
 import org.eclipse.paho.client.mqttv3.MqttClient
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions
@@ -15,10 +16,9 @@ object MqttService {
      * Publishes a given message to a topic
      *
      * @param mqttServerURI MQTT server to connect to
-     * @param topic MQTT topic to publish to
-     * @param messageString message to be sent
+     * @param mqttEvent MQTT event containing topic and value to be published
      */
-    fun publish(mqttServerURI: String, topic: String, messageString: String) {
+    fun publish(mqttServerURI: String, mqttEvent: MQTTEvent) {
         log.fine("Publish")
 
         // Set connection options
@@ -29,11 +29,41 @@ object MqttService {
         client.connect(connOpts)
 
         // Build message
-        val message = MqttMessage(messageString.toByteArray())
+        val message = MqttMessage(mqttEvent.value.toByteArray())
 
         // Publish message
-        log.info("Publish $topic : $messageString")
-        client.publish(topic, message)
+        log.info("Publish $mqttEvent.topic : $mqttEvent.value")
+        client.publish(mqttEvent.topic, message)
+
+        // Disconnect from MQTT broker
+        log.fine("Client disconnect")
+        client.disconnect()
+    }
+
+    /**
+     * Publishes a given message to a topic
+     *
+     * @param mqttServerURI MQTT server to connect to
+     * @param mqttEvents list of MQTT events to be published
+     */
+    fun publish(mqttServerURI: String, mqttEvents: List<MQTTEvent>) {
+        log.fine("Publish")
+
+        // Set connection options
+        val connOpts = MqttConnectOptions()
+
+        // Create client and connect
+        val client = MqttClient(mqttServerURI, MqttClient.generateClientId())
+        client.connect(connOpts)
+
+        mqttEvents.forEach { mqttEvent ->
+            // Build message
+            val message = MqttMessage(mqttEvent.value.toByteArray())
+
+            // Publish message
+            log.info("Publish $mqttEvent.topic : $mqttEvent.value")
+            client.publish(mqttEvent.topic, message)
+        }
 
         // Disconnect from MQTT broker
         log.fine("Client disconnect")
