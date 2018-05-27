@@ -32,7 +32,7 @@ object MqttService {
         val message = MqttMessage(mqttEvent.value.toByteArray())
 
         // Publish message
-        log.info("Publish $mqttEvent.topic : $mqttEvent.value")
+        log.info("Publish ${mqttEvent.topic} : ${mqttEvent.value}")
         client.publish(mqttEvent.topic, message)
 
         // Disconnect from MQTT broker
@@ -61,7 +61,7 @@ object MqttService {
             val message = MqttMessage(mqttEvent.value.toByteArray())
 
             // Publish message
-            log.info("Publish $mqttEvent.topic : $mqttEvent.value")
+            log.info("Publish ${mqttEvent.topic} : ${mqttEvent.value}")
             client.publish(mqttEvent.topic, message)
         }
 
