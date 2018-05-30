@@ -3,9 +3,9 @@ package berlin.intero.sentientlighthub.common
 class SentientProperties {
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
-        const val SENSOR_READ_DELAY = 2_500L
-        const val SENTIENT_MAPPING_DELAY = 2_500L
-        const val SENTIENT_WRITE_DELAY = 2_500L
+        const val SENSOR_READ_DELAY = 1L
+        const val SENTIENT_MAPPING_DELAY = 1L
+        const val SENTIENT_WRITE_DELAY = 1L
     }
 
     object GATT {
@@ -50,6 +50,7 @@ class SentientProperties {
 
     object Color {
         const val TASK = ANSI_COLOR.ANSI_GREEN
+        const val TASK_END = ANSI_COLOR.ANSI_GREEN
         const val GATT = ANSI_COLOR.ANSI_CYAN
         const val VALUE = ANSI_COLOR.ANSI_CYAN
         const val RESET = ANSI_COLOR.ANSI_RESET
