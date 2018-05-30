@@ -6,14 +6,13 @@ import berlin.intero.sentientlighthub.common.services.MqttService
 import java.util.logging.Logger
 
 /**
- * This async task publishes a given value to a MQTT topic
+ * This async task publishes a given list of {@param mqttEvents} on a MQTT broker
  *
- * @param topic topic to be published to
- * @param value value to publish
+ * @param mqttEvents MQTT events to be published
  */
 class MQTTPublishAsyncTask(
         private val mqttEvents: List<MQTTEvent>
-        ) : Runnable {
+) : Runnable {
 
     companion object {
         private val log: Logger = Logger.getLogger(MQTTPublishAsyncTask::class.simpleName)
@@ -23,6 +22,6 @@ class MQTTPublishAsyncTask(
         log.info("${SentientProperties.Color.TASK}-- MQTT PUBLISH TASK${SentientProperties.Color.RESET}")
 
         // Publish value
-        MqttService.publish(SentientProperties.MQTT.SERVER_URI, mqttEvents)
+        MqttService.publish(mqttEvents)
     }
 }

@@ -24,6 +24,6 @@ class MQTTSubscribeAsyncTask(
         log.info("${SentientProperties.Color.TASK}-- MQTT SUBSCRIBE TASK${SentientProperties.Color.RESET}")
         log.fine("topic $topic")
 
-        MqttService.subscribe(SentientProperties.MQTT.SERVER_URI, topic, callback)
+        MqttService.subscribe(topic, callback)
     }
 }
