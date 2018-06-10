@@ -1,6 +1,8 @@
 package berlin.intero.sentientlighthub.common
 
-class SentientProperties {
+object SentientProperties {
+    val MAX_SENSORS_PER_CABLE = 5
+
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
         const val SENSOR_READ_DELAY = 1L
