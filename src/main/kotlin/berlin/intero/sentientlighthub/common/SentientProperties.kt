@@ -6,6 +6,8 @@ class SentientProperties {
         const val SENSOR_READ_DELAY = 1L
         const val SENTIENT_MAPPING_DELAY = 1L
         const val SENTIENT_WRITE_DELAY = 1L
+
+        const val UNSUCCESSFUL_TASK_DELAY = 1000L
     }
 
     object GATT {
@@ -57,7 +59,8 @@ class SentientProperties {
 
         const val DEBUG = ANSI_COLOR.ANSI_GREEN
 
-        const val CONDITION_TRIGGERED = ANSI_COLOR.ANSI_YELLOW_BACKGROUND + " " + ANSI_COLOR.ANSI_BLACK
+        const val CONDITION_TRIGGERED_POS = ANSI_COLOR.ANSI_GREEN_BACKGROUND + " " + ANSI_COLOR.ANSI_BLACK
+        const val CONDITION_TRIGGERED_NEG = ANSI_COLOR.ANSI_YELLOW_BACKGROUND + " " + ANSI_COLOR.ANSI_BLACK
     }
 
     private object ANSI_COLOR {
