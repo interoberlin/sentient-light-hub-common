@@ -17,9 +17,9 @@ object ConfigurationService {
 
     private val log: Logger = Logger.getLogger(ConfigurationService::class.simpleName)
 
-    private const val sensorConfigFileName = "sentient-light-hub-config/sensors.json"
-    private const val actorConfigFileName = "sentient-light-hub-config/actors.json"
-    private const val mappingConfigFileName = "sentient-light-hub-config/mappings.json"
+    private const val sensorConfigFileName = "sensors.json"
+    private const val actorConfigFileName = "actors.json"
+    private const val mappingConfigFileName = "mappings.json"
 
     var sensorConfig: SensorConfig? = null
     var actorConfig: ActorConfig? = null

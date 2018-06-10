@@ -1,0 +1,40 @@
+{
+  "sensorDevices": [
+    {
+      "address": "F6:56:9D:78:F0:2E",
+      "owner": "Test",
+      "description": "Maker Faire 2018 Floor Sensor large",
+      "location": "",
+      "cables": [
+        {
+          "name": "A",
+          "sensors": [
+            { "checkerboardID": "X1", "enabled": false },
+            { "checkerboardID": "X2", "enabled": false },
+            { "checkerboardID": "X3", "enabled": false },
+            { "checkerboardID": "X4", "enabled": false },
+            { "checkerboardID": "X5", "enabled": false }
+          ]
+        }, {
+          "name": "B",
+          "sensors": [
+            { "checkerboardID": "X6", "enabled": false },
+            { "checkerboardID": "X7" },
+            { "checkerboardID": "X8", "enabled": false },
+            { "checkerboardID": "X9", "enabled": false },
+            { "checkerboardID": "X10", "enabled": false }
+          ]
+        }, {
+          "name": "C",
+          "sensors": [
+            { "checkerboardID": "X11", "enabled": false },
+            { "checkerboardID": "X12", "enabled": false },
+            { "checkerboardID": "X13", "enabled": false },
+            { "checkerboardID": "X14", "enabled": false },
+            { "checkerboardID": "X15", "enabled": false }
+          ]
+        }
+      ]
+    }
+  ]
+}
