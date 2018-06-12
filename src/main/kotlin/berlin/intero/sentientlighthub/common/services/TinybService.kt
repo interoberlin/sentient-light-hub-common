@@ -1,7 +1,6 @@
 package berlin.intero.sentientlighthub.common.services
 
 import berlin.intero.sentientlighthub.common.SentientProperties
-import berlin.intero.sentientlighthubplayground.exceptions.BluetoothConnectionException
 import tinyb.*
 import java.util.logging.Logger
 
@@ -81,9 +80,10 @@ object TinybService : BluetoothNotification<ByteArray> {
      * Tries to connect to a given bluetooth device if it is not already connected
      *
      * @param device bluetooth device to connect to
+     * @return true device could be connected
      */
-    @Throws(BluetoothException::class, BluetoothConnectionException::class)
-    fun ensureConnection(device: BluetoothDevice) {
+    @Throws(BluetoothException::class)
+    fun ensureConnection(device: BluetoothDevice): Boolean {
         log.fine("Ensure connection")
 
         repeat(SentientProperties.GATT.CONNECTION_RETRY, {
@@ -92,11 +92,11 @@ object TinybService : BluetoothNotification<ByteArray> {
                 Thread.sleep(SentientProperties.GATT.CONNECTION_IDLE)
             } else {
                 log.info("Connected ${device.address}")
-                return
+                return true
             }
         })
 
-        throw BluetoothConnectionException("Cannot connect to device ${device.address}")
+        return false
     }
 
     // --------------------
