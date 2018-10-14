@@ -5,22 +5,23 @@ import berlin.intero.sentientlighthub.common.services.SerialPortService
 import java.util.logging.Logger
 
 /**
- * This async task initializes a given COM port.
+ * This async task opens and initializes a given COM port.
  *
  * @param portName port name
  */
-class SerialInitializeAsyncTask(
+class SerialPortOpenAsyncTask(
         private val portName: String
 ) : Runnable {
 
     companion object {
-        private val log: Logger = Logger.getLogger(SerialInitializeAsyncTask::class.simpleName)
+        private val log: Logger = Logger.getLogger(SerialPortOpenAsyncTask::class.simpleName)
     }
 
     override fun run() {
-        log.info("${SentientProperties.Color.TASK}-- SERIAL INITIALIZE${SentientProperties.Color.RESET}")
+        log.info("${SentientProperties.Color.TASK}-- SERIAL PORT OPEN${SentientProperties.Color.RESET}")
         log.fine("portName $portName")
 
-        SerialPortService.initSerialPort(portName)
+        SerialPortService.openPort(portName)
+        SerialPortService.initSerialPort()
     }
 }

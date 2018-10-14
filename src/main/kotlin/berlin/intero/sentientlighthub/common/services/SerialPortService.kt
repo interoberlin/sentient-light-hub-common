@@ -10,10 +10,12 @@ object SerialPortService {
 
     private val log = Logger.getLogger(SerialPortService::class.simpleName)
 
+    private var port: SerialPort? = null
+
     /**
      * Discovers COMM ports
      */
-    fun discoverPorts(): Enumeration<Any> {
+    private fun discoverPorts(): Enumeration<Any> {
         return CommPortIdentifier.getPortIdentifiers()
     }
 
@@ -36,52 +38,62 @@ object SerialPortService {
      * @param portType port type
      */
     private fun getPortTypeName(portType: Int): String {
-        when (portType) {
-            CommPortIdentifier.PORT_I2C -> return "I2C"
-            CommPortIdentifier.PORT_PARALLEL -> return "Parallel"
-            CommPortIdentifier.PORT_RAW -> return "Raw"
-            CommPortIdentifier.PORT_RS485 -> return "RS485"
-            CommPortIdentifier.PORT_SERIAL -> return "Serial"
-            else -> return "unknown type"
+        return when (portType) {
+            CommPortIdentifier.PORT_I2C -> "I2C"
+            CommPortIdentifier.PORT_PARALLEL -> "Parallel"
+            CommPortIdentifier.PORT_RAW -> "Raw"
+            CommPortIdentifier.PORT_RS485 -> "RS485"
+            CommPortIdentifier.PORT_SERIAL -> "Serial"
+            else -> "unknown type"
         }
     }
 
     /**
-     * Initializes a serial port with a given name
-     *
-     * @param portName port name
+     * Initializes a serial port
      */
-    fun initSerialPort(portName: String) {
-        val portIdentifier = CommPortIdentifier.getPortIdentifier(portName)
-        val owner = SerialPortService.toString()
-        val waitingTime = 6000
-
-        if (portIdentifier.isCurrentlyOwned()) {
-            log.severe("Port is currently in use")
-        } else {
-            // Open port
-            val commPort = portIdentifier.open(owner, waitingTime)
-
-            if (commPort is SerialPort) {
-                // Configure port
-                commPort.setSerialPortParams(SentientProperties.Serial.BAUD_RATE,
-                        SentientProperties.Serial.DATA_BITS,
-                        SentientProperties.Serial.STOP_BITS,
-                        SentientProperties.Serial.PARITY)
-                commPort.flowControlMode = SentientProperties.Serial.FLOW_CONTROL
-            } else {
-                println("Error: Only serial ports are handled by this example.")
-            }
-        }
+    fun initSerialPort() {
+        port!!.setSerialPortParams(SentientProperties.Serial.BAUD_RATE,
+                SentientProperties.Serial.DATA_BITS,
+                SentientProperties.Serial.STOP_BITS,
+                SentientProperties.Serial.PARITY)
+        port!!.flowControlMode = SentientProperties.Serial.FLOW_CONTROL
     }
 
     /**
-     * Sends value on a given serial port
+     * Sends a value
      *
-     * @param portName port name
      * @param value value to send
      */
-    fun sendByte(portName: String, value: Int) {
+    fun sendByte(value: Int) {
+        port!!.outputStream.write(value)
+        port!!.outputStream.flush()
+    }
+
+    /**
+     * Sends a list of values
+     *
+     * @param values byte array of values to send
+     */
+    fun sendBytes(values: ByteArray) {
+        // port!!.outputStream.write(values)
+
+        values.forEach { port!!.outputStream.write(it.toInt()); Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY) }
+        port!!.outputStream.flush()
+    }
+
+    /**
+     * Sets the ready-to-send flag
+     *
+     * @param value value
+     */
+    fun setRTSSignal(value: Boolean) {
+
+        // Write value and close port
+        port!!.isRTS = value
+        // commPort.close()
+    }
+
+    fun openPort(portName: String) {
         val portIdentifier = CommPortIdentifier.getPortIdentifier(portName)
         val owner = SerialPortService.toString()
         val waitingTime = SentientProperties.Serial.CONNECTION_TIMEOUT
@@ -90,16 +102,11 @@ object SerialPortService {
             log.severe("Port is currently in use")
         } else {
             // Open port
-            val commPort = portIdentifier.open(owner, waitingTime)
-
-            if (commPort is SerialPort) {
-                // Write value and close port
-                commPort.outputStream.write(value)
-                commPort.outputStream.flush()
-                commPort.close()
-            } else {
-                println("Error: Only serial ports are handled by this example.")
-            }
+            port = portIdentifier.open(owner, waitingTime) as SerialPort
         }
+    }
+
+    fun closePort() {
+        port!!.close()
     }
 }

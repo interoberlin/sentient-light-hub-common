@@ -51,12 +51,13 @@ object SentientProperties {
     }
 
     object Serial {
-        val BAUD_RATE = 115200
+        val BAUD_RATE = 115_200
         val DATA_BITS = SerialPort.DATABITS_8
         val STOP_BITS = SerialPort.STOPBITS_1
         val PARITY = SerialPort.PARITY_NONE
         val FLOW_CONTROL = SerialPort.FLOWCONTROL_NONE
-        val CONNECTION_TIMEOUT = 6000
+        val CONNECTION_TIMEOUT = 6_000
+        val SEND_BYTE_DELAY = 1L
     }
 
     object Mapping {
