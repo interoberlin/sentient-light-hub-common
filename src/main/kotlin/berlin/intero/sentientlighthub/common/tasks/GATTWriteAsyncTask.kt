@@ -1,8 +1,8 @@
 package berlin.intero.sentientlighthub.common.tasks
 
 import berlin.intero.sentientlighthub.common.SentientProperties
+import berlin.intero.sentientlighthub.common.exceptions.BluetoothConnectionException
 import berlin.intero.sentientlighthub.common.services.TinybService
-import berlin.intero.sentientlighthubplayground.exceptions.BluetoothConnectionException
 import tinyb.BluetoothException
 import java.util.logging.Logger
 
@@ -39,7 +39,7 @@ class GATTWriteAsyncTask(
         } catch (ex: Exception) {
             when (ex) {
                 is BluetoothException -> {
-                    log.severe("Generic bluetooth exception")
+                    log.severe("Generic bluetooth exceptions")
                 }
                 is BluetoothConnectionException -> {
                     log.severe("Cannot connect to device ${this.address}")
