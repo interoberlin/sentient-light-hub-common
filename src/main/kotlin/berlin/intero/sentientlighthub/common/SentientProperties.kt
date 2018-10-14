@@ -1,5 +1,7 @@
 package berlin.intero.sentientlighthub.common
 
+import gnu.io.SerialPort
+
 object SentientProperties {
     val MAX_SENSORS_PER_CABLE = 5
 
@@ -46,6 +48,15 @@ object SentientProperties {
             var LED = "$BASE/led"
             var CONFIGURATION = "$BASE/config"
         }
+    }
+
+    object Serial {
+        val BAUD_RATE = 115200
+        val DATA_BITS = SerialPort.DATABITS_8
+        val STOP_BITS = SerialPort.STOPBITS_1
+        val PARITY = SerialPort.PARITY_NONE
+        val FLOW_CONTROL = SerialPort.FLOWCONTROL_NONE
+        val CONNECTION_TIMEOUT = 6000
     }
 
     object Mapping {
