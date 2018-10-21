@@ -57,7 +57,7 @@ object SentientProperties {
         val PARITY = SerialPort.PARITY_NONE
         val FLOW_CONTROL = SerialPort.FLOWCONTROL_NONE
         val CONNECTION_TIMEOUT = 6_000
-        val SEND_BYTE_DELAY = 1L
+        val SEND_BYTE_DELAY = 0L
     }
 
     object Mapping {

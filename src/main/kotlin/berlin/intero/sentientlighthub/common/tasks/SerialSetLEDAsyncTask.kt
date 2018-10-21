@@ -2,6 +2,7 @@ package berlin.intero.sentientlighthub.common.tasks
 
 import berlin.intero.sentientlighthub.common.SentientProperties
 import berlin.intero.sentientlighthub.common.services.SerialPortService
+import com.google.gson.Gson
 import java.util.logging.Logger
 
 /**
@@ -34,13 +35,10 @@ class SerialSetLEDAsyncTask(
         log.fine("amber $amber")
 
         val values = byteArrayOf(0x01, 0x00, ledID.toByte(), warmWhite, coldWhite, amber)
-
+        log.info(Gson().toJson(values));
 
         SerialPortService.setRTSSignal(true)
-        SerialPortService.sendBytes(values)
+        SerialPortService.sendBytesAtOnce(values)
         SerialPortService.setRTSSignal(false)
-
-        // After
-        SerialPortService.closePort()
     }
 }

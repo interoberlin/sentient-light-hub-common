@@ -74,11 +74,19 @@ object SerialPortService {
      *
      * @param values byte array of values to send
      */
-    fun sendBytes(values: ByteArray) {
-        // port!!.outputStream.write(values)
-
+    fun sendBytesOneByOne(values: ByteArray) {
         values.forEach { port!!.outputStream.write(it.toInt()); Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY) }
-        port!!.outputStream.flush()
+        // port!!.outputStream.flush()
+    }
+
+    /**
+     * Sends a list of values
+     *
+     * @param values byte array of values to send
+     */
+    fun sendBytesAtOnce(values: ByteArray) {
+        port!!.outputStream.write(values)
+        // port!!.outputStream.flush()
     }
 
     /**
