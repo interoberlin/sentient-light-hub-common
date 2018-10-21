@@ -132,4 +132,13 @@ object ConfigurationService {
             }
         }?.firstOrNull()
     }
+
+    /**
+     * Determines of all serial port actors
+     */
+    fun getSerialActors(): List<ActorDevice>? {
+        return actorConfig?.actorDevices?.filter { d ->
+            d.port != ""
+        }
+    }
 }
