@@ -76,7 +76,7 @@ object SerialPortService {
      */
     fun sendBytesOneByOne(values: ByteArray) {
         values.forEach { port!!.outputStream.write(it.toInt()); Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY) }
-        // port!!.outputStream.flush()
+        port!!.outputStream.flush()
     }
 
     /**
