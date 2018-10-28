@@ -46,6 +46,12 @@ object SentientProperties {
             var BASE = "/sentientlight"
             var SENSOR = "$BASE/floorsensor"
             var LED = "$BASE/led"
+            var MACRO = "$BASE/macro"
+
+            object Macro {
+                val RANGE = "$MACRO/range"
+            }
+
             var CONFIGURATION = "$BASE/config"
         }
     }
