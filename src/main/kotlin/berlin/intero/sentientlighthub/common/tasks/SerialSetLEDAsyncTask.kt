@@ -28,19 +28,19 @@ class SerialSetLEDAsyncTask(
 
     override fun run() {
         log.info("${SentientProperties.Color.TASK}-- SERIAL SET LED${SentientProperties.Color.RESET}")
-        log.fine("portName $portName")
-        log.fine("ledID $ledID")
-        log.fine("warmWhite $warmWhite")
-        log.fine("coldWhite $coldWhite")
-        log.fine("amber $amber")
+        log.info("portName $portName")
+        log.info("ledID $ledID")
+        log.info("warmWhite $warmWhite")
+        log.info("coldWhite $coldWhite")
+        log.info("amber $amber")
 
         // val values = byteArrayOf(0x01, 0x00, ledID.toByte(), warmWhite, coldWhite, amber)
         // FIXME Return to specified order once Matthias got his sh*t together
         val values = byteArrayOf(0x01, 0x00, ledID.toByte(), coldWhite, amber, warmWhite)
         log.fine(Gson().toJson(values));
 
-        SerialPortService.setRTSSignal(true)
+        SerialPortService.setDTSSignal(true)
         SerialPortService.sendBytesAtOnce(values)
-        SerialPortService.setRTSSignal(false)
+        SerialPortService.setDTSSignal(false)
     }
 }

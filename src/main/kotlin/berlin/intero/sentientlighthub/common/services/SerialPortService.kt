@@ -77,15 +77,15 @@ object SerialPortService {
      * @param values byte array of values to send
      */
     fun sendBytesOneByOne(values: ByteArray) {
+        log.fine("sendBytesOneByOne")
         try {
             values.forEach {
-                log.info("write byte ${it.toInt()}")
                 port?.outputStream?.write(it.toInt());
                 Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY)
             }
             port?.outputStream?.flush()
         } catch (e: IOException) {
-            log.warning("${SentientProperties.Color.ERROR}${e.message}${SentientProperties.Color.RESET}")
+            log.severe("${SentientProperties.Color.ERROR}${e.message}${SentientProperties.Color.RESET}")
         }
     }
 
@@ -95,7 +95,7 @@ object SerialPortService {
      * @param values byte array of values to send
      */
     fun sendBytesAtOnce(values: ByteArray) {
-        log.info("sendBytesAtOnce")
+        log.fine("sendBytesAtOnce")
         try {
             Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY)
             port?.outputStream?.write(values)
@@ -112,7 +112,20 @@ object SerialPortService {
      * @param value value
      */
     fun setRTSSignal(value: Boolean) {
+        log.fine("set RTS $value")
         port?.isRTS = value
+        log.fine("get RTS ${port?.isRTS}")
+    }
+
+    /**
+     * Sets the data-termial-ready flag
+     *
+     * @param value value
+     */
+    fun setDTSSignal(value: Boolean) {
+        log.fine("set DTR $value")
+        port?.isDTR = value
+        log.fine("get DTR ${port?.isDTR}")
     }
 
     fun openPort(portName: String) {
@@ -130,7 +143,6 @@ object SerialPortService {
             }
         } catch (nspe: NoSuchPortException) {
             log.severe("${SentientProperties.Color.ERROR}${nspe}${SentientProperties.Color.RESET}")
-
         }
     }
 
