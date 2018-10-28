@@ -2,7 +2,9 @@ package berlin.intero.sentientlighthub.common.services
 
 import berlin.intero.sentientlighthub.common.SentientProperties
 import gnu.io.CommPortIdentifier
+import gnu.io.NoSuchPortException
 import gnu.io.SerialPort
+import java.io.IOException
 import java.util.*
 import java.util.logging.Logger
 
@@ -52,11 +54,11 @@ object SerialPortService {
      * Initializes a serial port
      */
     fun initSerialPort() {
-        port!!.setSerialPortParams(SentientProperties.Serial.BAUD_RATE,
+        port?.setSerialPortParams(SentientProperties.Serial.BAUD_RATE,
                 SentientProperties.Serial.DATA_BITS,
                 SentientProperties.Serial.STOP_BITS,
                 SentientProperties.Serial.PARITY)
-        port!!.flowControlMode = SentientProperties.Serial.FLOW_CONTROL
+        port?.flowControlMode = SentientProperties.Serial.FLOW_CONTROL
     }
 
     /**
@@ -65,8 +67,8 @@ object SerialPortService {
      * @param value value to send
      */
     fun sendByte(value: Int) {
-        port!!.outputStream.write(value)
-        port!!.outputStream.flush()
+        port?.outputStream?.write(value)
+        port?.outputStream?.flush()
     }
 
     /**
@@ -75,8 +77,16 @@ object SerialPortService {
      * @param values byte array of values to send
      */
     fun sendBytesOneByOne(values: ByteArray) {
-        values.forEach { port!!.outputStream.write(it.toInt()); Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY) }
-        port!!.outputStream.flush()
+        try {
+            values.forEach {
+                log.info("write byte ${it.toInt()}")
+                port?.outputStream?.write(it.toInt());
+                Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY)
+            }
+            port?.outputStream?.flush()
+        } catch (e: IOException) {
+            log.warning("${SentientProperties.Color.ERROR}${e.message}${SentientProperties.Color.RESET}")
+        }
     }
 
     /**
@@ -85,8 +95,15 @@ object SerialPortService {
      * @param values byte array of values to send
      */
     fun sendBytesAtOnce(values: ByteArray) {
-        port!!.outputStream.write(values)
-        // port!!.outputStream.flush()
+        log.info("sendBytesAtOnce")
+        try {
+            Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY)
+            port?.outputStream?.write(values)
+            port?.outputStream?.flush()
+            Thread.sleep(SentientProperties.Serial.SEND_BYTE_DELAY)
+        } catch (e: IOException) {
+            log.severe("${SentientProperties.Color.ERROR}${e}${SentientProperties.Color.RESET}")
+        }
     }
 
     /**
@@ -95,26 +112,29 @@ object SerialPortService {
      * @param value value
      */
     fun setRTSSignal(value: Boolean) {
-
-        // Write value and close port
-        port!!.isRTS = value
-        // commPort.close()
+        port?.isRTS = value
     }
 
     fun openPort(portName: String) {
-        val portIdentifier = CommPortIdentifier.getPortIdentifier(portName)
-        val owner = SerialPortService.toString()
-        val waitingTime = SentientProperties.Serial.CONNECTION_TIMEOUT
+        log.info("open port $portName")
+        try {
+            val portIdentifier = CommPortIdentifier.getPortIdentifier(portName)
+            val owner = SerialPortService.toString()
+            val waitingTime = SentientProperties.Serial.CONNECTION_TIMEOUT
 
-        if (portIdentifier.isCurrentlyOwned) {
-            log.severe("Port is currently in use")
-        } else {
-            // Open port
-            port = portIdentifier.open(owner, waitingTime) as SerialPort
+            if (portIdentifier.isCurrentlyOwned) {
+                log.warning("Port is currently in use")
+            } else {
+                // Open port
+                port = portIdentifier.open(owner, waitingTime) as SerialPort
+            }
+        } catch (nspe: NoSuchPortException) {
+            log.severe("${SentientProperties.Color.ERROR}${nspe}${SentientProperties.Color.RESET}")
+
         }
     }
 
     fun closePort() {
-        port!!.close()
+        port?.close()
     }
 }
