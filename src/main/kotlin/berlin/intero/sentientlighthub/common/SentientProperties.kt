@@ -57,7 +57,7 @@ object SentientProperties {
         val PARITY = SerialPort.PARITY_NONE
         val FLOW_CONTROL = SerialPort.FLOWCONTROL_NONE
         val CONNECTION_TIMEOUT = 6_000
-        val SEND_BYTE_DELAY = 10L
+        val SEND_BYTE_DELAY = 1L
     }
 
     object Mapping {
@@ -69,6 +69,7 @@ object SentientProperties {
         const val TASK_END = ANSI_COLOR.ANSI_GREEN
         const val GATT = ANSI_COLOR.ANSI_CYAN
         const val VALUE = ANSI_COLOR.ANSI_CYAN
+        const val ERROR = ANSI_COLOR.ANSI_RED
         const val RESET = ANSI_COLOR.ANSI_RESET
 
         const val DEBUG = ANSI_COLOR.ANSI_GREEN
