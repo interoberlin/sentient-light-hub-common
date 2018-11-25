@@ -27,12 +27,7 @@ class SerialSetLEDAsyncTask(
     }
 
     override fun run() {
-        log.info("${SentientProperties.Color.TASK}-- SERIAL SET LED${SentientProperties.Color.RESET}")
-        log.info("portName $portName")
-        log.info("ledID $ledID")
-        log.info("warmWhite $warmWhite")
-        log.info("coldWhite $coldWhite")
-        log.info("amber $amber")
+        log.fine("${SentientProperties.Color.TASK}-- SERIAL SET LED${SentientProperties.Color.RESET}")
 
         // val values = byteArrayOf(0x01, 0x00, ledID.toByte(), warmWhite, coldWhite, amber)
         // FIXME Return to specified order once Matthias got his sh*t together

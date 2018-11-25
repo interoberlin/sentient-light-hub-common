@@ -12,7 +12,7 @@ import java.util.logging.Logger
 object MqttService {
 
     private val log = Logger.getLogger(MqttService::class.simpleName)
-    private val clientPublish = MqttClient(SentientProperties.MQTT.SERVER_URI, MqttClient.generateClientId())
+    private val client = MqttClient(SentientProperties.MQTT.SERVER_URI, MqttClient.generateClientId())
 
     /**
      * Publishes a given message to a topic
@@ -23,8 +23,8 @@ object MqttService {
         log.fine("Publish")
 
         // Connect client
-        if (!clientPublish.isConnected) {
-            clientPublish.connect()
+        if (!client.isConnected) {
+            client.connect()
         }
 
         mqttEvents.forEach { mqttEvent ->
@@ -34,15 +34,15 @@ object MqttService {
             message.isRetained = false
 
             // Publish message
-            log.info("Publish ${mqttEvent.topic} : ${mqttEvent.value}")
-            clientPublish.publish(mqttEvent.topic, message)
+            log.info("${SentientProperties.Color.TASK}Publish${SentientProperties.Color.RESET} ${mqttEvent.value}")
+            client.publish(mqttEvent.topic, message)
         }
 
         // Disconnect from MQTT broker
-        log.fine("Client disconnect")
-        if (clientPublish.isConnected) {
-            clientPublish.disconnect()
-        }
+        // log.fine("Client disconnect")
+        // if (client.isConnected) {
+        //     client.disconnect()
+        // }
     }
 
     /**

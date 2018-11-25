@@ -1,5 +1,5 @@
 package berlin.intero.sentientlighthub.common.model.actor
 
-enum class EDirection {
+enum class ETreeSide {
     NORTH, EAST, SOUTH, WEST
 }

@@ -7,30 +7,32 @@ object SentientProperties {
 
     object Frequency {
         const val SENSORS_SCAN_RATE = 300_000L
-        const val SENSOR_READ_DELAY = 1L
-        const val SENTIENT_MAPPING_DELAY = 1L
-        const val SENTIENT_WRITE_DELAY = 1L
+        const val SENSOR_READ_DELAY = 10L
+        const val SENTIENT_MAPPING_DELAY = 10L
+        const val SENTIENT_WRITE_DELAY = 10L
+
+        const val SENTIENT_MESSAGE_PROCESS_DELAY = 10L
 
         const val UNSUCCESSFUL_TASK_DELAY = 1000L
     }
 
     object GATT {
-        var CONNECTION_RETRY = 10
-        var CONNECTION_IDLE = 5000L
-        var SCAN_RETRY = 2
-        var SCAN_DURATION = 1000L
+        val CONNECTION_RETRY = 10
+        val CONNECTION_IDLE = 5000L
+        val SCAN_RETRY = 2
+        val SCAN_DURATION = 1000L
 
         const val INVALID_VALUE = -1
 
         object Characteristic {
-            var SENSOR = "00002014-0000-1000-8000-00805f9b34fb"
-            var LED    = "00004001-0000-1000-8000-00805f9b34fb"
+            val SENSOR = "00002014-0000-1000-8000-00805f9b34fb"
+            val LED    = "00004001-0000-1000-8000-00805f9b34fb"
         }
     }
 
     object MQTT {
-        var AUTOMATIC_RECONNECT = true
-        var CONNECTION_TIMEOUT = 30
+        val AUTOMATIC_RECONNECT = true
+        val CONNECTION_TIMEOUT = 30
 
         const val SERVER_HOST_LOCAL = "localhost"
         const val SERVER_PORT_LOCAL = "8883"
@@ -38,21 +40,28 @@ object SentientProperties {
         const val SERVER_HOST_CUMBERBATCH = "10.42.0.1"
         const val SERVER_PORT_CUMBERBATCH = "1883"
 
-        var SERVER_HOST = SERVER_HOST_LOCAL
-        var SERVER_PORT = SERVER_PORT_LOCAL
-        var SERVER_URI = "tcp://${SERVER_HOST}:${SERVER_PORT}"
+        val SERVER_HOST = SERVER_HOST_LOCAL
+        val SERVER_PORT = SERVER_PORT_LOCAL
+        val SERVER_URI = "tcp://${SERVER_HOST}:${SERVER_PORT}"
 
         object Topic {
-            var BASE = "/sentientlight"
-            var SENSOR = "$BASE/floorsensor"
-            var LED = "$BASE/led"
-            var MACRO = "$BASE/macro"
+            val BASE = "/sentientlight"
+            val SENSOR = "$BASE/floorsensor"
+            val LED = "$BASE/led"
+            val MACRO = "$BASE/macro"
 
             object Macro {
                 val RANGE = "$MACRO/range"
             }
 
-            var CONFIGURATION = "$BASE/config"
+            val TREE = "$BASE/tree"
+
+            object Tree {
+                val SET_PIXEL = "$TREE/setpixel"
+                val SET_ALL = "$TREE/setall"
+            }
+
+            val CONFIGURATION = "$BASE/config"
         }
     }
 
@@ -67,7 +76,7 @@ object SentientProperties {
     }
 
     object Mapping {
-        var VALUE_HISTORY = 50
+        val VALUE_HISTORY = 50
     }
 
     object Color {

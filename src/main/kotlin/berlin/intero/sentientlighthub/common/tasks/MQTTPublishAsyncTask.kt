@@ -19,7 +19,7 @@ class MQTTPublishAsyncTask(
     }
 
     override fun run() {
-        log.info("${SentientProperties.Color.TASK}-- MQTT PUBLISH TASK${SentientProperties.Color.RESET}")
+        log.fine("${SentientProperties.Color.TASK}-- MQTT PUBLISH TASK${SentientProperties.Color.RESET}")
 
         // Publish value
         MqttService.publish(mqttEvents)

@@ -2,6 +2,8 @@ package berlin.intero.sentientlighthub.common.services
 
 import berlin.intero.sentientlighthub.common.model.actor.ActorConfig
 import berlin.intero.sentientlighthub.common.model.actor.ActorDevice
+import berlin.intero.sentientlighthub.common.model.actor.EStrip
+import berlin.intero.sentientlighthub.common.model.actor.ETreeSide
 import berlin.intero.sentientlighthub.common.model.mapping.MappingConfig
 import berlin.intero.sentientlighthub.common.model.mapping.conditions.Fulfillable
 import berlin.intero.sentientlighthub.common.model.sensor.SensorConfig
@@ -140,5 +142,50 @@ object ConfigurationService {
         return actorConfig?.actorDevices?.filter { d ->
             d.port != ""
         }
+    }
+
+    //
+    // Tree
+    //
+
+    /**
+     * Retrieves technical ID of a tree LED strip based on side and strip
+     *
+     * @param side side (e.g. NORTH)
+     * @param strip strip (e.g. LEFT)
+     */
+    fun getTreeStripId(side: ETreeSide?, strip: EStrip?): Int {
+        when (side) {
+            ETreeSide.NORTH -> {
+                if (strip == EStrip.LEFT) {
+                    return 0
+                } else if (strip == EStrip.RIGHT) {
+                    return 1
+                }
+            }
+            ETreeSide.EAST -> {
+                if (strip == EStrip.LEFT) {
+                    return 2
+                } else if (strip == EStrip.RIGHT) {
+                    return 3
+                }
+            }
+            ETreeSide.SOUTH -> {
+                if (strip == EStrip.LEFT) {
+                    return 4
+                } else if (strip == EStrip.RIGHT) {
+                    return 5
+                }
+            }
+            ETreeSide.WEST -> {
+                if (strip == EStrip.LEFT) {
+                    return 6
+                } else if (strip == EStrip.RIGHT) {
+                    return 7
+                }
+            }
+        }
+
+        return -1
     }
 }
